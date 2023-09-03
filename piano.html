@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/piano.jfif">
+    <title>piano</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+
+<body>
+    <style>
+        body {
+            background-color: aqua;
+        }
+
+        .piano-key {
+            display: inline-block;
+            width: 70px;
+            height: 100px;
+            border: 1px solid black;
+            background-color: white;
+            text-align: center;
+        }
+
+
+        .black-key {
+            background-color: black;
+            margin-left: -25px;
+            width: 30px;
+            height: 120px;
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+    <div class="piano-key" onclick="playNote('n1')" data-note="n1">note 1</div>
+    <div class="piano-key" onclick="playNote('n2')" data-note="n2">note 2</div>
+    <div class="piano-key" onclick="playNote('n3')" data-note="n3">note 3</div>
+    <div class="piano-key" onclick="playNote('n4')" data-note="n4">note 4</div>
+    <div class="piano-key" onclick="playNote('n5')" data-note="n5">note 5</div>
+    <div class="piano-key" onclick="playNote('n6')" data-note="n6">note 6</div>
+
+
+
+    <script>
+
+
+        $(document).ready(function () {
+            var buttons = document.getElementsByClassName("piano-key");
+            var currentAudio = null; // تخزين الصوت الحالي
+
+            function playSound(note) {
+                var note = this.getAttribute("data-note");
+                var audio = new Audio("notes/" + note + ".mp3");
+
+                // إيقاف الصوت الحالي إذا كان مشغلاً
+                if (currentAudio !== null) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+
+                // تعيين الصوت الحالي
+                currentAudio = audio;
+
+                // تشغيل الصوت الجديد
+                audio.play();
+            }
+
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener("click", playSound);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
